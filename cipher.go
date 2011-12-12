@@ -387,7 +387,7 @@ func (c *cipher) ekskey(data []byte, key []byte) {
  * of rounds of hashing to apply
  * @return	an array containing the binary hashed password
  */
-func crypt_raw(password []byte, salt []byte, log_rounds uint) []byte {
+func crypt_raw(password []byte, salt []byte, log_rounds uint64) []byte {
 	c := &cipher{P:p_orig, S:s_orig, data:bf_crypt_ciphertext}
 
 	rounds := 1 << log_rounds
@@ -402,7 +402,7 @@ func crypt_raw(password []byte, salt []byte, log_rounds uint) []byte {
 			c.encipher(c.data[:], j<<1)
 		}
 	}
-	
+
 	ret := make([]byte, 24)
 	for i := 0; i < 6; i++ {
 		k := i<<2
